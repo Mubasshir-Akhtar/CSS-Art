@@ -1,0 +1,282 @@
+/* The calculations in the following document are a mess because a size for the rocket body was initially chosen 
+and the rocket was made as per that size. Then, all the dimensions were set proportional to the rocket size.
+This was done to make the rocket scalable to be used in multiple projects.
+P.S. 1. The original values that were used are written in the inline comments.
+2. The fumes don't work at any scale other than this; I've tried to make them work but ebentually gave up. Everyhting else scales up properly though. */
+
+body {
+  overflow: hidden;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  margin: 100px auto;
+  position: relative;
+
+  --body-height: 174px; /* 348px */
+}
+
+.rocket-body {
+  content: "";
+  width: var(--body-height); /* 174px*/
+  height: calc(2 * var(--body-height)); /* 348px */
+  /* background-color: red; */
+  z-index: 0;
+  position: absolute;
+}
+
+.rocket {
+  position: absolute;
+  animation: bounce 6s infinite;
+}
+
+.body {
+  content: "";
+  width: calc(0.5 * var(--body-height)); /* 174px */
+  height: var(--body-height);
+  border-radius: 50% 50% 24% 24% / 68% 68% 37% 37%;
+  background-color: #94b1ff;
+  z-index: 0;
+}
+
+.wing {
+  content: "";
+  width: calc(0.2874 * var(--body-height)); /* 100px */
+  height: calc(0.2874 * var(--body-height)); /* 100px */
+  background-color: #735290;
+  z-index: -1;
+  bottom: 0;
+  position: absolute;
+}
+
+.wing-left {
+  border-radius: 100% 0% 0% 17% / 83% 0% 0% 17%;
+  /*   transform: translateX(35%); */
+  left: calc(-50% + 0.25 * 0.2874 * var(--body-height)); /* -50% + 25px */
+}
+
+.wing-right {
+  border-radius: 0% 100% 17% 0% / 0% 83% 17% 0%;
+  /*   transform: translateX(-35%); */
+  right: calc(-50% + 0.25 * 0.2874 * var(--body-height)); /* -50% + 25px */
+}
+
+.body::before {
+  content: "";
+  position: absolute;
+  height: calc(0.25 * 0.2874 * var(--body-height)); /* 25px */
+  width: calc(0.2874 * var(--body-height)); /* 100px */
+  left: calc(
+    50% - calc(0.5 * 0.2874 * var(--body-height))
+  ); /*50% - width of this element/2 (50% - 50px) */
+  bottom: calc(
+    -0.25 * 0.2874 * var(--body-height)
+  ); /* negative of the height of the element (-25px)*/
+  background-color: #7a6174;
+  border-radius: 0% 0% 50% 50% / 0% 0% 50% 50%;
+}
+
+.window-frame {
+  content: "";
+  height: calc(0.2874 * var(--body-height)); /* 100px */
+  width: calc(0.2874 * var(--body-height)); /* 100px */
+  background-color: #0a090c;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transform: translateY(-300%);
+
+  position: absolute;
+  left: calc(
+    50% - calc(0.5 * 0.2874 * var(--body-height))
+  ); /*50% - width of this element (50% - 50px)*/
+  bottom: calc(-1.25 * 0.2874 * var(--body-height)); /* -125px*/
+}
+
+.window-hole {
+  content: "";
+  height: calc(
+    0.2874 * var(--body-height) - 0.1 * 0.2874 * var(--body-height)
+  ); /* 90px */
+  width: calc(
+    0.2874 * var(--body-height) - 0.1 * 0.2874 * var(--body-height)
+  ); /* 90px */
+  background-color: #f5cac3;
+  border-radius: 50%;
+}
+
+.exhaust-flame {
+  content: "";
+  position: absolute;
+  bottom: height;
+  width: calc(
+    0.2874 * var(--body-height) - 0.1 * 0.2874 * var(--body-height)
+  ); /* 90px */
+  height: 150px;
+  background: linear-gradient(to top, transparent 10%, #f2542d 100%);
+  left: calc(
+    50% - 0.5 *
+      (0.2874 * var(--body-height) - 0.1 * 0.2874 * var(--body-height))
+  ); /* 50% - width of this element/2 (50% - 45px) */
+  animation: exhaust 0.1s infinite;
+  z-index: -1;
+}
+
+@keyframes bounce {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  25% {
+    transform: translate3d(3px, 3px, 0);
+  }
+  50% {
+    transform: translate3d(-3px, 4px, 0);
+  }
+  75% {
+    transform: translate3d(0, 2px, 0);
+  }
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes exhaust {
+  0% {
+    background: linear-gradient(to top, transparent 10%, #eb5e28 100%);
+  }
+
+  10% {
+    background: linear-gradient(to top, transparent 12%, #eb5e28 100%);
+  }
+  20% {
+    background: linear-gradient(to top, transparent 14%, #eb5e28 100%);
+  }
+  30% {
+    background: linear-gradient(to top, transparent 16%, #eb5e28 100%);
+  }
+  40% {
+    background: linear-gradient(to top, transparent 18%, #eb5e28 100%);
+  }
+  50% {
+    background: linear-gradient(to top, transparent 20%, #eb5e28 100%);
+  }
+  60% {
+    background: linear-gradient(to top, transparent 20%, #eb5e28 100%);
+  }
+  70% {
+    background: linear-gradient(to top, transparent 18%, #eb5e28 100%);
+  }
+  80% {
+    background: linear-gradient(to top, transparent 16%, #eb5e28 100%);
+  }
+  90% {
+    background: linear-gradient(to top, transparent 14%, #eb5e28 100%);
+  }
+  100% {
+    background: linear-gradient(to top, transparent 12%, #eb5e28 100%);
+  }
+}
+
+.exhaust-fumes {
+  all: unset; /* Removes styles from the ul element; Not doing this causes weird behaviour*/
+}
+
+.exhaust-fumes li {
+  width: 60px;
+  height: 60px;
+  background-color: #ff8484;
+  list-style: none;
+  position: absolute;
+  border-radius: 100%;
+}
+
+.exhaust-fumes li:first-child {
+  width: 200px;
+  height: 200px;
+  bottom: -125px;
+  animation: fumes 5s infinite;
+}
+
+.exhaust-fumes li:nth-child(2) {
+  width: 150px;
+  height: 150px;
+  left: -120px;
+  top: 260px;
+  animation: fumes 3.2s infinite;
+}
+
+.exhaust-fumes li:nth-child(3) {
+  width: 120px;
+  height: 120px;
+  left: -40px;
+  top: 330px;
+  animation: fumes 3s 1s infinite;
+}
+
+.exhaust-fumes li:nth-child(4) {
+  width: 100px;
+  height: 100px;
+  left: -170px;
+  animation: fumes 4s 2s infinite;
+  top: 380px;
+}
+
+.exhaust-fumes li:nth-child(5) {
+  width: 130px;
+  height: 130px;
+  left: -120px;
+  top: 350px;
+  animation: fumes 5s infinite;
+}
+
+.exhaust-fumes li:nth-child(6) {
+  width: 200px;
+  height: 200px;
+  left: -60px;
+  top: 280px;
+  animation: fumes2 10s infinite;
+}
+
+.exhaust-fumes li:nth-child(7) {
+  width: 100px;
+  height: 100px;
+  left: -100px;
+  top: 320px;
+}
+
+.exhaust-fumes li:nth-child(8) {
+  width: 110px;
+  height: 110px;
+  left: 70px;
+  top: 340px;
+}
+
+.exhaust-fumes li:nth-child(9) {
+  width: 90px;
+  height: 90px;
+  left: 200px;
+  top: 380px;
+  animation: fumes 20s infinite;
+}
+
+@keyframes fumes {
+  50% {
+    transform: scale(1.5);
+    background-color: transparent;
+  }
+  51% {
+    transform: scale(0.8);
+  }
+  100% {
+    background-color: #ff8484;
+    transform: scale(1);
+  }
+}
+
+@keyframes fumes2 {
+  50% {
+    transform: scale(1.1);
+  }
+}
