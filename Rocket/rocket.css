@@ -1,40 +1,36 @@
 /* The calculations in the following document are a mess because a size for the rocket body was initially chosen 
 and the rocket was made as per that size. Then, all the dimensions were set proportional to the rocket size.
 This was done to make the rocket scalable to be used in multiple projects.
-P.S. 1. The original values that were used are written in the inline comments.
-2. The fumes don't work at any scale other than this; I've tried to make them work but ebentually gave up. Everyhting else scales up properly though. */
+P.S. The original values that were used are written in the inline comments. */
 
 body {
   overflow: hidden;
+  background-color: #0a090c;
 }
 
 .container {
+  content: "";
+  height: calc(2 * var(--body-height)); /* 348px */
+  width: calc(2 * var(--body-height));
   display: flex;
   justify-content: center;
   margin: 100px auto;
   position: relative;
+  /* overflow: hidden; */
 
   --body-height: 174px; /* 348px */
 }
 
-.rocket-body {
-  content: "";
-  width: var(--body-height); /* 174px*/
-  height: calc(2 * var(--body-height)); /* 348px */
-  /* background-color: red; */
-  z-index: 0;
-  position: absolute;
-}
-
 .rocket {
-  position: absolute;
-  animation: bounce 6s infinite;
+  display: flex;
+  justify-content: center;
+  animation: shake 6s infinite;
 }
 
 .body {
   content: "";
   width: calc(0.5 * var(--body-height)); /* 174px */
-  height: var(--body-height);
+  height: var(--body-height); /* 348px */
   border-radius: 50% 50% 24% 24% / 68% 68% 37% 37%;
   background-color: #94b1ff;
   z-index: 0;
@@ -52,13 +48,11 @@ body {
 
 .wing-left {
   border-radius: 100% 0% 0% 17% / 83% 0% 0% 17%;
-  /*   transform: translateX(35%); */
   left: calc(-50% + 0.25 * 0.2874 * var(--body-height)); /* -50% + 25px */
 }
 
 .wing-right {
   border-radius: 0% 100% 17% 0% / 0% 83% 17% 0%;
-  /*   transform: translateX(-35%); */
   right: calc(-50% + 0.25 * 0.2874 * var(--body-height)); /* -50% + 25px */
 }
 
@@ -69,7 +63,7 @@ body {
   width: calc(0.2874 * var(--body-height)); /* 100px */
   left: calc(
     50% - calc(0.5 * 0.2874 * var(--body-height))
-  ); /*50% - width of this element/2 (50% - 50px) */
+  ); /*50% - width of this element/2  (50% - 50px) */
   bottom: calc(
     -0.25 * 0.2874 * var(--body-height)
   ); /* negative of the height of the element (-25px)*/
@@ -91,8 +85,8 @@ body {
   position: absolute;
   left: calc(
     50% - calc(0.5 * 0.2874 * var(--body-height))
-  ); /*50% - width of this element (50% - 50px)*/
-  bottom: calc(-1.25 * 0.2874 * var(--body-height)); /* -125px*/
+  ); /*50% - width of this element/2 (50% - 50px)*/
+  bottom: calc(-1.25 * 0.2874 * var(--body-height)); /* -125px */
 }
 
 .window-hole {
@@ -110,7 +104,7 @@ body {
 .exhaust-flame {
   content: "";
   position: absolute;
-  bottom: height;
+  bottom: -130px; /* Negative of height of this element (-150px) */
   width: calc(
     0.2874 * var(--body-height) - 0.1 * 0.2874 * var(--body-height)
   ); /* 90px */
@@ -124,7 +118,69 @@ body {
   z-index: -1;
 }
 
-@keyframes bounce {
+.exhaust-fumes {
+  all: unset; /* Removes styles from the ul element; Not doing this causes weird behaviour*/
+}
+
+.exhaust-fumes li {
+  background-color: #fff;
+  list-style: none;
+  position: absolute;
+  border-radius: 100%;
+}
+
+.exhaust-fumes li:first-child {
+  width: calc(2.5 * 0.2874 * var(--body-height));
+  height: calc(2.5 * 0.2874 * var(--body-height));
+  left: 90%;
+  translate: -50%;
+  top: 75%;
+  animation: fumes1 5s infinite;
+}
+
+.exhaust-fumes li:nth-child(2) {
+  width: calc(4 * 0.2874 * var(--body-height)); /* 400px */
+  height: calc(4 * 0.2874 * var(--body-height)); /* 400px */
+  left: 50%;
+  translate: -50%;
+  top: 70%;
+  animation: fumes2 10s infinite;
+}
+
+.exhaust-fumes li:nth-child(3) {
+  width: calc(2 * 0.2874 * var(--body-height));
+  height: calc(2 * 0.2874 * var(--body-height));
+  left: 70%;
+  top: 70%;
+}
+
+.exhaust-fumes li:nth-child(4) {
+  width: calc(2.5 * 0.2874 * var(--body-height));
+  height: calc(2.5 * 0.2874 * var(--body-height));
+  left: 0;
+  top: 80%;
+  animation: fumes2 5s 1s infinite;
+}
+
+.exhaust-fumes li:nth-child(5) {
+  width: calc(1.5 * 0.2874 * var(--body-height));
+  height: calc(1.5 * 0.2874 * var(--body-height));
+  left: 25%;
+  translate: -50%;
+  top: 65%;
+  animation: fumes1 5s 3s infinite;
+}
+
+.exhaust-fumes li:nth-child(6) {
+  width: calc(2.5 * 0.2874 * var(--body-height));
+  height: calc(2.5 * 0.2874 * var(--body-height));
+  left: 80%;
+  translate: -50%;
+  top: 80%;
+  animation: fumes1 5s 1s infinite;
+}
+
+@keyframes shake {
   0% {
     transform: translate3d(0, 0, 0);
   }
@@ -146,7 +202,6 @@ body {
   0% {
     background: linear-gradient(to top, transparent 10%, #eb5e28 100%);
   }
-
   10% {
     background: linear-gradient(to top, transparent 12%, #eb5e28 100%);
   }
@@ -179,89 +234,7 @@ body {
   }
 }
 
-.exhaust-fumes {
-  all: unset; /* Removes styles from the ul element; Not doing this causes weird behaviour*/
-}
-
-.exhaust-fumes li {
-  width: 60px;
-  height: 60px;
-  background-color: #ff8484;
-  list-style: none;
-  position: absolute;
-  border-radius: 100%;
-}
-
-.exhaust-fumes li:first-child {
-  width: 200px;
-  height: 200px;
-  bottom: -125px;
-  animation: fumes 5s infinite;
-}
-
-.exhaust-fumes li:nth-child(2) {
-  width: 150px;
-  height: 150px;
-  left: -120px;
-  top: 260px;
-  animation: fumes 3.2s infinite;
-}
-
-.exhaust-fumes li:nth-child(3) {
-  width: 120px;
-  height: 120px;
-  left: -40px;
-  top: 330px;
-  animation: fumes 3s 1s infinite;
-}
-
-.exhaust-fumes li:nth-child(4) {
-  width: 100px;
-  height: 100px;
-  left: -170px;
-  animation: fumes 4s 2s infinite;
-  top: 380px;
-}
-
-.exhaust-fumes li:nth-child(5) {
-  width: 130px;
-  height: 130px;
-  left: -120px;
-  top: 350px;
-  animation: fumes 5s infinite;
-}
-
-.exhaust-fumes li:nth-child(6) {
-  width: 200px;
-  height: 200px;
-  left: -60px;
-  top: 280px;
-  animation: fumes2 10s infinite;
-}
-
-.exhaust-fumes li:nth-child(7) {
-  width: 100px;
-  height: 100px;
-  left: -100px;
-  top: 320px;
-}
-
-.exhaust-fumes li:nth-child(8) {
-  width: 110px;
-  height: 110px;
-  left: 70px;
-  top: 340px;
-}
-
-.exhaust-fumes li:nth-child(9) {
-  width: 90px;
-  height: 90px;
-  left: 200px;
-  top: 380px;
-  animation: fumes 20s infinite;
-}
-
-@keyframes fumes {
+@keyframes fumes1 {
   50% {
     transform: scale(1.5);
     background-color: transparent;
@@ -270,7 +243,7 @@ body {
     transform: scale(0.8);
   }
   100% {
-    background-color: #ff8484;
+    background-color: #fff;
     transform: scale(1);
   }
 }
