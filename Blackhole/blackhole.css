@@ -1,0 +1,89 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: black;
+  display: grid;
+  place-items: center;
+  margin: 200px auto;
+}
+
+.container {
+  --size: 250px;
+}
+
+.wrapper {
+  rotate: -30deg;
+}
+
+.hole {
+  content: "";
+  width: var(--size);
+  height: var(--size);
+  border-radius: 50%;
+  background-color: black;
+  box-shadow: 0px 0px calc(0.2 * var(--size)) calc(0.08 * var(--size)) #d84528;
+  position: relative;
+  filter: blur(1px);
+}
+
+.disc {
+  content: "";
+  height: 100%;
+  width: 100%;
+  border-radius: 50%;
+  rotate: x 80deg;
+  position: absolute;
+}
+
+.disc.i {
+  transform: scale(1.2);
+  box-shadow: 0px 0px calc(0.752 * var(--size)) calc(0.192 * var(--size))
+    #eb8e27;
+  filter: blur(calc(0.04 * var(--size)));
+}
+
+.disc.m {
+  transform: scale(1.5);
+  box-shadow: 0px 0px calc(0.752 * var(--size)) calc(0.192 * var(--size))
+      #e26928,
+    inset 0px 0px calc(0.12 * var(--size)) calc(0.024 * var(--size)) #e26928;
+  filter: blur(calc(0.04 * var(--size)));
+}
+
+.disc.o {
+  transform: scale(2);
+  box-shadow: 0px 0px calc(0.752 * var(--size)) calc(0.192 * var(--size))
+      #d84528,
+    inset 0px 0px calc(0.16 * var(--size)) calc(0.024 * var(--size)) #d84528;
+  filter: blur(calc(0.06 * var(--size)));
+}
+
+.cover {
+  content: "";
+  width: var(--size);
+  height: calc(0.5 * var(--size)); /*half of width*/
+  border-radius: 50% 50% 50% 50% / 100% 100% 0% 0%;
+  background-color: black;
+  position: absolute;
+  box-shadow: 0px calc(-0.12 * var(--size)) calc(0.12 * var(--size)) 0px #e26928;
+}
+
+.light {
+  content: "";
+  width: var(--size);
+  height: var(--size);
+  border-radius: 50%;
+  box-shadow: 0px calc(0.04 * var(--size)) 0px 0px #fff;
+  animation: 0.01s rotate linear infinite;
+  filter: blur(calc(0.02 * var(--size)));
+}
+
+@keyframes rotate {
+  100% {
+    transform: rotate(360deg);
+  }
+}
