@@ -1,0 +1,138 @@
+/*This design is not scalable because it requires complicated calculations that plain css cannot perform. It needs a preprocessor to be scalable. I might learn SASS and update it but until then you are stuck with this size  */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #16252c;
+}
+
+.plane-wrapper {
+  width: 250px;
+  height: 250px;
+  margin: 100px auto;
+  transform-style: preserve-3d;
+  animation: glide 7s 5s linear infinite;
+}
+
+.plane {
+  position: relative;
+  width: 250px;
+  height: 250px;
+  transform-origin: 50% 40%;
+  display: grid;
+  place-items: center;
+  transform-style: preserve-3d;
+  perspective: 1000px;
+  animation: fly 5s linear;
+}
+
+.left-fold {
+  content: "";
+  height: 100px;
+  width: 50px;
+  background-color: #a68c9c;
+  position: absolute;
+  translate: -50%;
+  clip-path: polygon(100% 0, 0 100%, 100% 100%);
+  transform-origin: right;
+  transform: rotateX(90deg) rotateY(75deg);
+  border: 2px solid black;
+}
+
+.right-fold {
+  content: "";
+  height: 100px;
+  width: 50px;
+  background-color: #a68c9c;
+  position: absolute;
+  translate: 50%;
+  clip-path: polygon(0 0, 0 100%, 100% 100%);
+  transform-origin: left;
+  transform: rotateX(90deg) rotateY(-75deg);
+  border: 2px solid black;
+}
+
+.wing {
+  content: "";
+  height: 111.83px;
+  width: 50px;
+  position: absolute;
+  top: 50%;
+  background-color: #a68c9c;
+  border: 2px solid black;
+}
+
+.wleft {
+  transform-origin: top left;
+  left: 50%;
+  clip-path: polygon(0 0, 0 100%, 100% 100%);
+  transform: rotateX(90deg) translateY(-50px) rotateX(27deg) rotateY(10deg)
+    rotateZ(-7deg);
+}
+
+.wright {
+  transform-origin: top right;
+  right: 50%;
+  clip-path: polygon(100% 0, 0 100%, 100% 100%);
+  transform: rotateX(90deg) translateY(-50px) rotateX(27deg) rotateY(-10deg)
+    rotateZ(7deg);
+}
+
+.top {
+  background-color: #e2dee0;
+}
+
+.top.left-fold {
+  transform: rotateX(90deg) rotateY(75.5deg);
+}
+
+.top.right-fold {
+  transform: rotateX(90deg) rotateY(-75.5deg);
+}
+
+.top.wleft {
+  transform: rotateX(90deg) translateY(-50.5px) rotateX(27deg) rotateY(10deg)
+    rotateZ(-7deg);
+}
+
+.top.wright {
+  transform: rotateX(90deg) translateY(-50.5px) rotateX(27deg) rotateY(-10deg)
+    rotateZ(7deg);
+}
+
+@keyframes glide {
+  0% {
+    transform: rotateX(-35deg) rotateY(-15deg) rotateZ(-12deg);
+  }
+  12.5% {
+    transform: rotateX(-40deg) rotateY(-15deg) rotateZ(-12deg) translateY(-10px)
+      translateZ(-10px);
+  }
+  75% {
+    transform: rotateX(-20deg) rotateY(-15deg) rotateZ(-12deg) translateY(0px)
+      translateZ(0px);
+  }
+  100% {
+    transform: rotateX(-35deg) rotateY(-15deg) rotateZ(-12deg);
+  }
+}
+
+@keyframes fly {
+  0% {
+    transform: perspective(1000px) rotateY(270deg);
+  }
+  50% {
+    transform: perspective(1000px) rotateY(1080deg) translateX(100px)
+      translateY(50%) translateZ(0);
+  }
+  75% {
+    transform: rotateX(-40deg) rotateY(-15deg) rotateZ(-12deg);
+  }
+  100% {
+    transform: rotateX(-35deg) rotateY(-15deg) rotateZ(-12deg);
+  }
+}
