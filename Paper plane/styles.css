@@ -1,4 +1,4 @@
-/*This design is not scalable because it requires complicated calculations that plain css cannot perform. It needs a preprocessor to be scalable. I might learn SASS and update it but until then you are stuck with this size  */
+/* This design is scalable. Change the variable --plane-length to suit the dimensions to your needs. The minimum length of the plane is 100px. Under this length, the wings behave weirdly.*/
 
 * {
   margin: 0;
@@ -16,6 +16,8 @@ body {
   margin: 100px auto;
   transform-style: preserve-3d;
   animation: glide 7s 5s linear infinite;
+
+  --plane-length: 100px;
 }
 
 .plane {
@@ -32,8 +34,8 @@ body {
 
 .left-fold {
   content: "";
-  height: 100px;
-  width: 50px;
+  height: var(--plane-length);
+  width: calc(0.5 * var(--plane-length));
   background-color: #a68c9c;
   position: absolute;
   translate: -50%;
@@ -45,8 +47,8 @@ body {
 
 .right-fold {
   content: "";
-  height: 100px;
-  width: 50px;
+  height: var(--plane-length);
+  width: calc(0.5 * var(--plane-length));
   background-color: #a68c9c;
   position: absolute;
   translate: 50%;
@@ -56,10 +58,10 @@ body {
   border: 2px solid black;
 }
 
-.wing {
+.plane-wing {
   content: "";
-  height: 111.83px;
-  width: 50px;
+  height: calc(1.12 * var(--plane-length));
+  width: calc(0.5 * var(--plane-length));
   position: absolute;
   top: 50%;
   background-color: #a68c9c;
@@ -70,16 +72,16 @@ body {
   transform-origin: top left;
   left: 50%;
   clip-path: polygon(0 0, 0 100%, 100% 100%);
-  transform: rotateX(90deg) translateY(-50px) rotateX(27deg) rotateY(10deg)
-    rotateZ(-7deg);
+  transform: rotateX(90deg) translateY(calc(-0.5 * var(--plane-length)))
+    rotateX(27deg) rotateY(10deg) rotateZ(-7deg);
 }
 
 .wright {
   transform-origin: top right;
   right: 50%;
   clip-path: polygon(100% 0, 0 100%, 100% 100%);
-  transform: rotateX(90deg) translateY(-50px) rotateX(27deg) rotateY(-10deg)
-    rotateZ(7deg);
+  transform: rotateX(90deg) translateY(calc(-0.5 * var(--plane-length)))
+    rotateX(27deg) rotateY(-10deg) rotateZ(7deg);
 }
 
 .top {
@@ -87,21 +89,21 @@ body {
 }
 
 .top.left-fold {
-  transform: rotateX(90deg) rotateY(75.5deg);
+  transform: rotateX(90deg) rotateY(75.25deg);
 }
 
 .top.right-fold {
-  transform: rotateX(90deg) rotateY(-75.5deg);
+  transform: rotateX(90deg) rotateY(-75.25deg);
 }
 
 .top.wleft {
-  transform: rotateX(90deg) translateY(-50.5px) rotateX(27deg) rotateY(10deg)
-    rotateZ(-7deg);
+  transform: rotateX(90deg) translateY(calc(-0.501 * var(--plane-length)))
+    rotateX(27deg) rotateY(10deg) rotateZ(-7deg);
 }
 
 .top.wright {
-  transform: rotateX(90deg) translateY(-50.5px) rotateX(27deg) rotateY(-10deg)
-    rotateZ(7deg);
+  transform: rotateX(90deg) translateY(calc(-0.501 * var(--plane-length)))
+    rotateX(27deg) rotateY(-10deg) rotateZ(7deg);
 }
 
 @keyframes glide {
@@ -109,8 +111,9 @@ body {
     transform: rotateX(-35deg) rotateY(-15deg) rotateZ(-12deg);
   }
   12.5% {
-    transform: rotateX(-40deg) rotateY(-15deg) rotateZ(-12deg) translateY(-10px)
-      translateZ(-10px);
+    transform: rotateX(-40deg) rotateY(-15deg) rotateZ(-12deg)
+      translateY(calc(-0.1 * var(--plane-length)))
+      translateZ(calc(-0.1 * var(--plane-length)));
   }
   75% {
     transform: rotateX(-20deg) rotateY(-15deg) rotateZ(-12deg) translateY(0px)
@@ -126,8 +129,8 @@ body {
     transform: perspective(1000px) rotateY(270deg);
   }
   50% {
-    transform: perspective(1000px) rotateY(1080deg) translateX(100px)
-      translateY(50%) translateZ(0);
+    transform: perspective(1000px) rotateY(1080deg)
+      translateX(var(--plane-length)) translateY(50%) translateZ(0);
   }
   75% {
     transform: rotateX(-40deg) rotateY(-15deg) rotateZ(-12deg);
