@@ -1,0 +1,173 @@
+/* This design is scalable. Try changing the valur of the variable --moon-size. */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  list-style: none;
+}
+
+body {
+  background-color: #1b0e21;
+}
+
+.moon-wrapper {
+  width: 250px;
+  margin: 150px auto;
+  position: relative;
+  display: grid;
+  place-items: center;
+}
+
+.moon {
+  --moon-size: 200px;
+  content: "";
+  width: var(--moon-size);
+  height: var(--moon-size);
+  border-radius: 50%;
+  background-color: #537aad;
+  background-image: radial-gradient(
+    circle at 0 20%,
+    #6c88ad 0%,
+    transparent 65%,
+    #416da7 65%
+  );
+  box-shadow: 0px 0px calc(0.2 * var(--moon-size))
+      calc(0.035 * var(--moon-size)) #8498b1,
+    inset 0px 0px calc(0.05 * var(--moon-size)) 0px #8498b1;
+  position: relative;
+  z-index: 1;
+  animation: bob 5s infinite ease-in-out;
+}
+
+.craters {
+  z-index: 2;
+}
+
+.craters > li {
+  content: "";
+  border-radius: 50%;
+  background-color: #275086;
+  background-image: radial-gradient(
+    circle at 100% 80%,
+    #275086 0%,
+    #275086 65%,
+    rgba(0, 0, 0, 0.1) 65%
+  );
+  position: absolute;
+}
+
+.craters > li:nth-child(1) {
+  width: calc(0.375 * var(--moon-size));
+  height: calc(0.375 * var(--moon-size));
+  top: 10%;
+  left: 15%;
+}
+
+.craters > li:nth-child(2) {
+  width: calc(0.25 * var(--moon-size));
+  height: calc(0.25 * var(--moon-size));
+  top: 65%;
+  left: 30%;
+}
+
+.craters > li:nth-child(3) {
+  width: calc(0.2 * var(--moon-size));
+  height: calc(0.2 * var(--moon-size));
+  top: 35%;
+  left: 70%;
+}
+
+.craters > li:nth-child(4) {
+  width: calc(0.075 * var(--moon-size));
+  height: calc(0.075 * var(--moon-size));
+  top: 50%;
+  left: 63%;
+}
+
+.craters > li:nth-child(5) {
+  width: calc(0.1 * var(--moon-size));
+  height: calc(0.1 * var(--moon-size));
+  top: 60%;
+  left: 23%;
+}
+
+.craters > li:nth-child(6) {
+  width: calc(0.175 * var(--moon-size));
+  height: calc(0.175 * var(--moon-size));
+  top: 10%;
+  left: 45%;
+}
+
+.craters > li:nth-child(7) {
+  width: calc(0.125 * var(--moon-size));
+  height: calc(0.125 * var(--moon-size));
+  top: 57%;
+  left: 79%;
+}
+
+.stars {
+  width: 250px;
+  height: 250px;
+  position: absolute;
+}
+
+.stars > li {
+  content: "";
+  background-color: white;
+  border-radius: 50%;
+  width: 5px;
+  height: 5px;
+  position: absolute;
+}
+
+.stars > li:nth-child(1) {
+  top: -5%;
+  left: 0;
+}
+
+.stars > li:nth-child(2) {
+  top: 20%;
+  left: 110%;
+}
+
+.stars > li:nth-child(3) {
+  top: 22%;
+  left: 108%;
+}
+
+.stars > li:nth-child(4) {
+  top: 110%;
+  left: 30%;
+}
+
+.stars > li:nth-child(5) {
+  top: 0%;
+  right: 40%;
+}
+
+.stars > li:nth-child(6) {
+  bottom: 0%;
+  right: -10%;
+}
+
+.stars > li:nth-child(7) {
+  top: 35%;
+  left: -5%;
+}
+
+.stars > li:nth-child(8) {
+  top: 60%;
+  left: 100%;
+}
+
+.stars > li:nth-child(9) {
+  top: 80%;
+  left: -5%;
+}
+
+@keyframes bob {
+  50% {
+    transform: translateY(10px);
+  }
+}
